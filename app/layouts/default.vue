@@ -2,9 +2,9 @@
     <div>
       <LayoutNavbar />
   
-      <main>
+      <LayoutContainer>
         <slot />
-      </main>
+      </LayoutContainer>
   
       <LayoutFooter />
     </div>

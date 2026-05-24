@@ -15,3 +15,21 @@
         </div>
     </nav>
 </template>
+
+<style scoped>
+.navbar {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+.navbar-item {
+    color: #fff;
+    margin-right: 1rem;
+    text-decoration: none;
+}
+.navbar-item:hover {
+    text-decoration: underline;
+}
+</style>
