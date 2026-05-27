@@ -1,0 +1,62 @@
+.section{
+
+    padding:
+    var(--space-xl)
+    0;
+    }
+    
+    .grid{
+    
+    display:grid;
+    gap:var(--space-md);
+    
+    }
+    
+    .grid-2{
+    
+    grid-template-columns:
+    repeat(
+    2,
+    1fr
+    );
+    }
+    
+    .grid-3{
+    
+    grid-template-columns:
+    repeat(
+    3,
+    1fr
+    );
+    }
+    
+    .grid-4{
+    
+    grid-template-columns:
+    repeat(
+    4,
+    1fr
+    );
+    }
+    
+    .stack{
+    
+    display:flex;
+    flex-direction:column;
+    gap:var(--space-md);
+    }
+    
+    
+    @media(
+    max-width:768px
+    ){
+    
+    .grid-2,
+    .grid-3,
+    .grid-4{
+    
+    grid-template-columns:1fr;
+    
+    }
+    
+    }
