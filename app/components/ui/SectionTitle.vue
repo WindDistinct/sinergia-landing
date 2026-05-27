@@ -1,24 +1,22 @@
 <script setup lang="ts">
 
-defineProps<{
-  title:string
-  subtitle?:string
-}>()
+  defineProps<{
+    title:string
+    subtitle?:string
+  }>()
 
 </script>
 
 <template>
 
-<div>
+  <div class="section-title">
+    <h2>
+      {{ title }}
+    </h2>
 
-<h2>
-{{ title }}
-</h2>
-
-<p v-if="subtitle">
-{{ subtitle }}
-</p>
-
-</div>
+    <p v-if="subtitle">
+      {{ subtitle }}
+    </p>
+  </div>
 
 </template>
