@@ -1,10 +1,7 @@
-<script setup lang="ts">
-</script>
-
 <template>
 
-<div>
-  <slot />
-</div>
+  <div class="card">
+    <slot />
+  </div>
 
 </template>
