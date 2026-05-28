@@ -19,29 +19,16 @@ useSEO(seo.home)
 </script>
 
 <template>
-
-  <Hero />
-  <p>---------------------------------------</p>
-  <Competition />
-  <p>---------------------------------------</p>
-  <Problem />
-  <p>---------------------------------------</p>
-  <Mindset />
-  <p>---------------------------------------</p>
-  <AboutUs />
-  <p>---------------------------------------</p>
-  <Methodology />
-  <p>---------------------------------------</p>
-  <WhatWeDo />
-  <p>---------------------------------------</p>
-  <Differentiator />
-  <p>---------------------------------------</p>
-  <Portfolio />
-  <p>---------------------------------------</p>
-  <Experiences />
-  <p>---------------------------------------</p>
-  <HowWeHelp />
-  <p>---------------------------------------</p>
-  <ContactCTA />
-  
+    <Hero />
+    <Competition />
+    <Problem />
+    <Mindset />
+    <AboutUs />
+    <Methodology />
+    <WhatWeDo />
+    <Differentiator />
+    <Portfolio />
+    <Experiences />
+    <HowWeHelp />
+    <ContactCTA />
 </template>
