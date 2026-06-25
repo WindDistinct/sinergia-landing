@@ -26,7 +26,6 @@ const loading   = ref(false)
 
 async function handleSubmit() {
     loading.value = true
-    // Replace with your actual form submission logic (e.g. fetch, EmailJS, Formspree)
     await new Promise(r => setTimeout(r, 1000))
     submitted.value = true
     loading.value   = false
@@ -41,8 +40,7 @@ async function handleSubmit() {
             <div class="contact-page__glow" />
             <LayoutContainer size="narrow">
                 <div class="contact-page__hero-content">
-                    <p class="contact-page__label">Contacto</p>
-                    <h1 class="contact-page__title">Conversemos</h1>
+                    <h1 class="dtitle">Conversemos</h1>
                     <p class="contact-page__subtitle">
                         Cuéntanos sobre tu próximo evento y diseñamos
                         juntos la experiencia perfecta para tu marca.
@@ -52,7 +50,7 @@ async function handleSubmit() {
         </section>
 
         <!-- Body -->
-        <section class="contact-page__body">
+        <section class="contact-page__body" id="contacto">
             <LayoutContainer>
                 <div class="contact-page__inner">
 
@@ -265,15 +263,6 @@ async function handleSubmit() {
     letter-spacing: var(--letter-spacing-wider);
     text-transform: uppercase;
     color: var(--color-accent);
-    margin-bottom: var(--space-sm);
-}
-
-.contact-page__title {
-    font-size: clamp(2.5rem, 6vw, var(--font-size-5xl));
-    font-weight: var(--font-weight-black);
-    color: var(--color-white);
-    letter-spacing: -0.02em;
-    line-height: var(--line-height-tight);
     margin-bottom: var(--space-sm);
 }
 

@@ -1,148 +1,225 @@
 <script setup lang="ts">
 import { contact } from '~/content/home'
+
+const year = new Date().getFullYear()
 </script>
 
 <template>
     <footer class="footer">
-        <div class="footer__inner">
+        <div class="wrap">
+            <div class="ft-grid">
 
-            <!-- Brand -->
-            <div class="footer__brand">
-                <span class="footer__logo">
-                    SINERGIA<span class="footer__logo-dash">—</span>
-                </span>
-                <p class="footer__tagline">
-                    Stands · Ferias · Activaciones · Merchandising
-                </p>
+                <div class="ft-brand">
+                    <p class="ft-logo">SINERGIA<em>—</em></p>
+                    <p class="ft-tagline">Stands · Activaciones de marca<br>Merchandising corporativo · Lima, Perú</p>
+                </div>
+
+                <nav class="ft-nav">
+                    <a href="#portfolio">Proyectos</a>
+                    <a href="#proceso">Proceso</a>
+                    <a href="#clientes">Clientes</a>
+                    <a href="#servicios">Servicios</a>
+                    <a href="#contacto">Contacto</a>
+                </nav>
+
+                <div class="ft-contact">
+                    <a href="https://instagram.com/sinergiasmc" target="_blank" rel="noopener" class="ft-ig">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8" />
+                            <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8" />
+                            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+                        </svg>
+                        @sinergiasmc
+                    </a>
+                    <a :href="`tel:${contact.phone}`" class="ft-contact-link">{{ contact.phone }}</a>
+                    <a :href="`mailto:${contact.email}`" class="ft-contact-link">{{ contact.email }}</a>
+                    <span>{{ contact.address }}</span>
+                </div>
+
             </div>
 
-            <!-- Nav -->
-            <nav class="footer__nav">
-                <NuxtLink to="/"          class="footer__link">Inicio</NuxtLink>
-                <NuxtLink to="/portfolio" class="footer__link">Portafolio</NuxtLink>
-                <NuxtLink to="/contact"   class="footer__link">Contacto</NuxtLink>
-            </nav>
-
-            <!-- Contact -->
-            <div class="footer__contact">
-                <a :href="`tel:${contact.phone}`" class="footer__contact-item">
-                    {{ contact.phone }}
+            <div class="ft-bottom">
+                <p class="ft-copy">© {{ year }} Sinergia. Todos los derechos reservados.</p>
+                <a href="https://bluelynk.dev" target="_blank" rel="noopener" class="powerdby">
+                    <span>Powered by</span>
+                    <img src="/images/BlueLynk-horizontal-azul.png" alt="Blue Lynk">
                 </a>
-                <a :href="`mailto:${contact.email}`" class="footer__contact-item">
-                    {{ contact.email }}
-                </a>
-                <span class="footer__contact-item footer__contact-item--address">
-                    {{ contact.address }}
-                </span>
             </div>
-
-        </div>
-
-        <div class="footer__bottom">
-            <p>© {{ new Date().getFullYear() }} Sinergia. Todos los derechos reservados.</p>
         </div>
     </footer>
 </template>
 
 <style scoped>
 .footer {
-    background-color: var(--color-black-soft);
-    border-top: 1px solid var(--color-border);
-    padding-top: var(--space-xl);
+    background: var(--black-mid);
+    border-top: 1px solid var(--border);
+    padding: 60px 0 32px;
 }
 
-.footer__inner {
-    max-width: var(--container-width);
-    margin: 0 auto;
-    padding: 0 var(--container-padding) var(--space-lg);
+.ft-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: var(--space-lg);
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
 }
 
-/* Brand */
-.footer__logo {
-    display: block;
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-black);
-    color: var(--color-white);
-    letter-spacing: -0.02em;
-    margin-bottom: var(--space-xs);
+.ft-logo {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -.025em;
+    margin-bottom: 8px;
 }
 
-.footer__logo-dash {
-    color: var(--color-accent);
+.ft-logo em {
+    font-style: normal;
+    color: var(--gold);
 }
 
-.footer__tagline {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    line-height: var(--line-height-loose);
+.ft-tagline {
+    font-size: 12px;
+    color: var(--light);
+    line-height: 1.6;
+    margin-top: 6px;
 }
 
-/* Nav */
-.footer__nav {
+.ft-nav {
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
+    gap: 14px;
 }
 
-.footer__link {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text-muted);
-    text-decoration: none;
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
-    transition: color var(--transition-fast);
+.ft-nav a {
+    font-size: 13px;
+    color: var(--light);
+    transition: color .15s;
 }
 
-.footer__link:hover {
-    color: var(--color-white);
+.ft-nav a:hover {
+    color: var(--white);
 }
 
-/* Contact */
-.footer__contact {
+.ft-contact {
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
+    gap: 12px;
 }
 
-.footer__contact-item {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    text-decoration: none;
-    transition: color var(--transition-fast);
-    line-height: var(--line-height-normal);
+.ft-ig {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--light);
+    transition: color .15s;
+    margin-bottom: 4px;
 }
 
-a.footer__contact-item:hover {
-    color: var(--color-accent);
+.ft-ig svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
 }
 
-.footer__contact-item--address {
-    color: var(--color-gray-mid);
+.ft-ig:hover {
+    color: var(--white);
 }
 
-/* Bottom bar */
-.footer__bottom {
-    border-top: 1px solid var(--color-border);
-    padding: var(--space-sm) var(--container-padding);
-    max-width: var(--container-width);
-    margin: 0 auto;
-    text-align: center;
+.ft-contact a,
+.ft-contact span {
+    font-size: 12px;
+    color: var(--light);
+    transition: color .15s;
+    line-height: 1.5;
 }
 
-.footer__bottom p {
-    font-size: var(--font-size-xs);
-    color: var(--color-gray-mid);
+a.ft-contact-link:hover {
+    color: var(--white);
 }
 
-/* Responsive */
+.ft-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.ft-copy {
+    font-size: 11px;
+    color: var(--light);
+}
+
+.powerdby {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 8px;
+}
+
+.powerdby span {
+    color: var(--light);
+}
+
+.powerdby:hover span {
+    color: var(--white);
+}
+
+.powerdby img {
+    width: 200px;
+    height: auto;
+}
+
+/* ── TABLET (≤ 768px) ── */
 @media (max-width: 768px) {
-    .footer__inner {
+    .ft-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    .ft-brand {
+        grid-column: 1 / -1;
+        /* ocupa todo el ancho */
+    }
+}
+
+/* ── MOBILE (≤ 480px) ── */
+@media (max-width: 480px) {
+    .footer {
+        padding: 48px 0 24px;
+    }
+
+    .ft-grid {
         grid-template-columns: 1fr;
-        gap: var(--space-md);
+        gap: 36px;
+        padding-bottom: 36px;
+    }
+
+    .ft-brand {
+        grid-column: auto;
+    }
+
+    .ft-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+    }
+
+    .ft-bottom {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .powerdby {
+        align-items: center;
+    }
+
+    .ft-grid, .ft-nav, .ft-ig {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
 }
 </style>

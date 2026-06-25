@@ -1,38 +1,31 @@
+<!-- Container.vue -->
+<!-- In v4 usamos directamente .wrap de layout.css -->
+<!-- Puedes seguir usando <LayoutContainer> pero internamente solo aplica .wrap -->
+
 <script setup lang="ts">
 defineProps<{
-    /**
-     * 'default' → max-width contenido normal (1200px)
-     * 'narrow'  → para secciones de texto centrado (760px)
-     * 'full'    → sin max-width, solo padding lateral
-     */
     size?: 'default' | 'narrow' | 'full'
 }>()
 </script>
 
 <template>
-    <div :class="['container', `container--${size || 'default'}`]">
+    <div :class="[
+        'wrap',
+        size === 'narrow' ? 'wrap--narrow' : '',
+        size === 'full' ? 'wrap--full' : '',
+    ]">
         <slot />
     </div>
 </template>
 
 <style scoped>
-.container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--container-padding);
-    padding-right: var(--container-padding);
-}
-
-.container--default {
-    max-width: var(--container-width);
-}
-
-.container--narrow {
+/* Narrow override */
+.wrap--narrow {
     max-width: 760px;
 }
 
-.container--full {
+/* Full override */
+.wrap--full {
     max-width: 100%;
 }
 </style>

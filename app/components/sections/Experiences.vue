@@ -1,260 +1,179 @@
 <script setup lang="ts">
-import { experienceSection, experienceLevels } from '~/content/home'
+import { experienceLevels, helpItems } from '~/content/home'
 </script>
 
 <template>
-    <section class="experiences">
-        <LayoutContainer>
+    <!-- NIVELES — editorial list style, not cards -->
+    <section class="s-niveles" id="niveles">
+        <div class="wrap">
+            <span class="niv-kicker">Niveles de servicio</span>
+            <h2 class="dtitle">Elegí el<br><em>impacto</em><br>que buscás.</h2>
 
-            <div class="experiences__header">
-                <p class="experiences__label">Niveles de servicio</p>
-                <h2 class="experiences__title">{{ experienceSection.title }}</h2>
-            </div>
-
-            <div class="experiences__grid">
-                <div
-                    v-for="(level, i) in experienceLevels"
-                    :key="i"
-                    class="experiences__card"
-                    :class="{ 'experiences__card--featured': level.featured }"
-                >
-                    <!-- Featured badge -->
-                    <div v-if="level.featured" class="experiences__badge">
-                        Más elegido
+            <div class="niv-list">
+                <div v-for="(level, i) in experienceLevels" :key="i" class="niv-item"
+                    :class="{ 'niv-item--featured': level.featured }">
+                    <div class="niv-meta">
+                        <span class="niv-num">0{{ i + 1 }}</span>
+                        <span v-if="level.featured" class="niv-badge">Más elegido</span>
                     </div>
-
-                    <h3 class="experiences__card-name">{{ level.name }}</h3>
-                    <p class="experiences__card-description">{{ level.description }}</p>
-
-                    <div class="experiences__divider" />
-
-                    <!-- Includes -->
-                    <div class="experiences__block">
-                        <p class="experiences__block-label">Incluye</p>
-                        <ul class="experiences__list">
-                            <li
-                                v-for="(item, j) in level.includes"
-                                :key="j"
-                                class="experiences__list-item"
-                            >
-                                <span class="experiences__list-icon">✓</span>
-                                {{ item }}
-                            </li>
-                        </ul>
+                    <div class="niv-content">
+                        <h3 class="niv-name">{{ level.name }}</h3>
+                        <p class="niv-desc">{{ level.description }}</p>
                     </div>
-
-                    <div class="experiences__divider" />
-
-                    <!-- Result -->
-                    <div class="experiences__block">
-                        <p class="experiences__block-label">Resultado</p>
-                        <ul class="experiences__result-list">
-                            <li
-                                v-for="(res, k) in level.result"
-                                :key="k"
-                                class="experiences__result-item"
-                            >
-                                {{ res }}
-                            </li>
-                        </ul>
+                    <div class="niv-includes">
+                        <span v-for="(inc, j) in level.includes" :key="j" class="niv-tag">{{ inc }}</span>
                     </div>
-
-                    <NuxtLink to="/contact" class="experiences__card-cta">
-                        Quiero este nivel →
-                    </NuxtLink>
+                    <div class="niv-results">
+                        <span v-for="(res, k) in level.result" :key="k" class="niv-result">→ {{ res }}</span>
+                    </div>
+                    <a href="#contacto" class="niv-cta">Quiero este nivel →</a>
                 </div>
             </div>
-
-        </LayoutContainer>
+        </div>
     </section>
 </template>
 
 <style scoped>
-.experiences {
-    padding: var(--space-xl) 0;
-    background-color: var(--color-black-soft);
+.s-niveles {
+    padding: 120px 0;
+    background: var(--black-soft);
 }
 
-/* Header */
-.experiences__header {
-    text-align: center;
-    margin-bottom: var(--space-xl);
-}
-
-.experiences__label {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: var(--letter-spacing-wider);
+.niv-kicker {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: var(--space-sm);
+    color: var(--gold);
+    margin-bottom: 28px;
 }
 
-.experiences__title {
-    font-size: clamp(1.75rem, 3.5vw, var(--font-size-3xl));
-    font-weight: var(--font-weight-black);
-    color: var(--color-white);
-    letter-spacing: -0.02em;
-    line-height: var(--line-height-tight);
-    max-width: 640px;
-    margin: 0 auto;
-}
-
-/* Grid */
-.experiences__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-md);
-    align-items: start;
-}
-
-/* Card */
-.experiences__card {
-    position: relative;
-    background-color: var(--color-black);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg) var(--space-md);
+.niv-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
-    transition: border-color var(--transition-base);
 }
 
-.experiences__card:hover {
-    border-color: var(--color-gray-mid);
+.niv-item {
+    display: grid;
+    grid-template-columns: 60px 1fr 1fr 1fr auto;
+    gap: 32px;
+    align-items: center;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border);
+    transition: background .2s;
 }
 
-.experiences__card--featured {
-    border-color: var(--color-accent);
-    background: linear-gradient(
-        160deg,
-        rgba(201, 184, 0, 0.07) 0%,
-        var(--color-black) 50%
-    );
+.niv-item:first-child {
+    border-top: 1px solid var(--border);
 }
 
-.experiences__card--featured:hover {
-    border-color: var(--color-accent);
+.niv-item:hover {
+    background: var(--gold-faint);
 }
 
-/* Featured badge */
-.experiences__badge {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--color-accent);
-    color: var(--color-black);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-black);
-    letter-spacing: var(--letter-spacing-wide);
+.niv-item--featured {
+    border-left: 2px solid var(--gold);
+    padding-left: 24px;
+}
+
+.niv-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.niv-num {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    color: var(--gold);
+}
+
+.niv-badge {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .1em;
     text-transform: uppercase;
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--radius-sm);
+    background: var(--gold);
+    color: var(--black);
+    padding: 2px 6px;
+    border-radius: 2px;
     white-space: nowrap;
 }
 
-.experiences__card-name {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-black);
-    color: var(--color-white);
-    letter-spacing: -0.01em;
+.niv-name {
+    font-size: clamp(18px, 2vw, 26px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin-bottom: 6px;
 }
 
-.experiences__card-description {
-    font-size: var(--font-size-md);
-    color: var(--color-text-muted);
-    line-height: var(--line-height-loose);
+.niv-desc {
+    font-size: 13px;
+    color: var(--light);
+    line-height: 1.5;
 }
 
-.experiences__divider {
-    width: 100%;
-    height: 1px;
-    background-color: var(--color-border);
+.niv-includes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
 }
 
-/* Blocks */
-.experiences__block {
+.niv-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    border: 1px solid var(--border-2);
+    border-radius: 2px;
+    padding: 4px 8px;
+}
+
+.niv-results {
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
+    gap: 4px;
 }
 
-.experiences__block-label {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-black);
-    letter-spacing: var(--letter-spacing-wider);
+.niv-result {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--light);
+    letter-spacing: 0.04em;
+}
+
+.niv-item--featured .niv-result {
+    color: var(--gold);
+}
+
+.niv-cta {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--color-gray-mid);
+    color: var(--gold);
+    white-space: nowrap;
+    transition: opacity .15s;
 }
 
-/* Includes list */
-.experiences__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
+.niv-cta:hover {
+    opacity: 0.7;
 }
 
-.experiences__list-item {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-xs);
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    line-height: var(--line-height-normal);
-}
-
-.experiences__list-icon {
-    color: var(--color-accent);
-    font-weight: var(--font-weight-black);
-    flex-shrink: 0;
-    margin-top: 1px;
-}
-
-/* Result list */
-.experiences__result-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-}
-
-.experiences__result-item {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-white);
-    letter-spacing: var(--letter-spacing-wide);
-}
-
-/* CTA */
-.experiences__card-cta {
-    display: inline-block;
-    margin-top: auto;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-black);
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
-    color: var(--color-accent);
-    text-decoration: none;
-    transition: opacity var(--transition-fast);
-}
-
-.experiences__card-cta:hover {
-    opacity: 0.75;
-}
-
-/* Responsive */
 @media (max-width: 900px) {
-    .experiences__grid {
+    .niv-item {
         grid-template-columns: 1fr;
-        max-width: 480px;
-        margin: 0 auto;
+        gap: 16px;
+    }
+
+    .niv-item--featured {
+        padding-left: 0;
+        border-left: none;
+        border-top: 2px solid var(--gold);
     }
 }
 </style>

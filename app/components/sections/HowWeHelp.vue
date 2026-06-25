@@ -1,151 +1,98 @@
 <script setup lang="ts">
 import { helpSection, helpItems } from '~/content/home'
-
-const icons = ['◎', '◐', '◑', '●']
 </script>
 
 <template>
-    <section class="help">
-        <LayoutContainer>
-
-            <div class="help__inner">
-
-                <!-- Left: heading -->
-                <div class="help__heading">
-                    <p class="help__label">Lo que logramos</p>
-                    <h2 class="help__title">{{ helpSection.title }}</h2>
-                    <NuxtLink to="/contact" class="help__cta">
-                        Empecemos →
-                    </NuxtLink>
+    <section class="s-help">
+        <div class="wrap">
+            <div class="help-inner">
+                <div class="help-left">
+                    <span class="help-kicker">Lo que logramos</span>
+                    <h2 class="dtitle" style="margin-bottom: 32px">{{ helpSection.title }}</h2>
+                    <a href="#contacto" class="btn-gold">Empecemos →</a>
                 </div>
-
-                <!-- Right: grid -->
-                <div class="help__grid">
-                    <div
-                        v-for="(item, i) in helpItems"
-                        :key="i"
-                        class="help__card"
-                    >
-                        <span class="help__card-icon">{{ icons[i] }}</span>
-                        <h3 class="help__card-title">{{ item.title }}</h3>
-                        <p class="help__card-description">{{ item.description }}</p>
+                <div class="help-right">
+                    <div v-for="(item, i) in helpItems" :key="i" class="help-item">
+                        <span class="help-num">0{{ i + 1 }}</span>
+                        <div>
+                            <h3 class="help-title">{{ item.title }}</h3>
+                            <p class="help-desc">{{ item.description }}</p>
+                        </div>
                     </div>
                 </div>
-
             </div>
-
-        </LayoutContainer>
+        </div>
     </section>
 </template>
 
 <style scoped>
-.help {
-    padding: var(--space-xl) 0;
-    background-color: var(--color-black-soft);
+.s-help {
+    padding: 120px 0;
+    background: var(--black);
+    border-top: 1px solid var(--border);
 }
 
-.help__inner {
+.help-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
-    align-items: center;
+    gap: 80px;
+    align-items: start;
 }
 
-/* Left */
-.help__label {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: var(--letter-spacing-wider);
+.help-kicker {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: var(--space-sm);
+    color: var(--gold);
+    margin-bottom: 28px;
 }
 
-.help__title {
-    font-size: clamp(1.75rem, 3vw, var(--font-size-3xl));
-    font-weight: var(--font-weight-black);
-    color: var(--color-white);
-    letter-spacing: -0.02em;
-    line-height: var(--line-height-tight);
-    margin-bottom: var(--space-lg);
-}
-
-.help__cta {
-    display: inline-block;
-    padding: 0.85rem 2rem;
-    background-color: var(--color-accent);
-    color: var(--color-black);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-black);
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: var(--radius-sm);
-    transition: opacity var(--transition-fast), transform var(--transition-fast);
-}
-
-.help__cta:hover {
-    opacity: 0.85;
-    transform: translateY(-1px);
-}
-
-/* Right: 2x2 grid */
-.help__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-sm);
-}
-
-.help__card {
-    background-color: var(--color-black);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-md);
+.help-right {
     display: flex;
     flex-direction: column;
-    gap: var(--space-xs);
-    transition: border-color var(--transition-base), transform var(--transition-base);
+    padding-top: 8px;
 }
 
-.help__card:hover {
-    border-color: var(--color-accent);
-    transform: translateY(-2px);
+.help-item {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
 }
 
-.help__card-icon {
-    font-size: var(--font-size-xl);
-    color: var(--color-accent);
-    line-height: 1;
-    margin-bottom: var(--space-xs);
+.help-item:first-child {
+    border-top: 1px solid var(--border);
 }
 
-.help__card-title {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-black);
-    color: var(--color-white);
-    letter-spacing: -0.01em;
+.help-num {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    color: var(--gold);
+    padding-top: 6px;
 }
 
-.help__card-description {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    line-height: var(--line-height-loose);
+.help-title {
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin-bottom: 6px;
 }
 
-/* Responsive */
+.help-desc {
+    font-size: 13px;
+    color: var(--light);
+    line-height: 1.6;
+}
+
 @media (max-width: 768px) {
-    .help__inner {
+    .help-inner {
         grid-template-columns: 1fr;
-    }
-
-    .help__grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 400px) {
-    .help__grid {
-        grid-template-columns: 1fr;
+        gap: 48px;
     }
 }
 </style>

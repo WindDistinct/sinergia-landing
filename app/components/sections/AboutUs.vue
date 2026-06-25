@@ -1,167 +1,92 @@
 <script setup lang="ts">
-import { about } from '~/content/home'
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const brands = [
-    'Rimac', 'Banco Financiero', 'Bioderma',
-    'Perupack', 'Ledex', 'Totalmatrix',
-    'Verdal', 'Port Logistics', 'Llamagas',
+gsap.registerPlugin(ScrollTrigger)
+
+const logos = [
+    { name: 'Rimac', x: 6, y: 14, s: 'lg', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Rimac_Seguros_logo.svg/320px-Rimac_Seguros_logo.svg.png' },
+    { name: 'Bioderma', x: 36, y: 8, s: 'sm', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Bioderma.svg/320px-Bioderma.svg.png' },
+    { name: 'Perupack', x: 66, y: 12, s: 'md', img: 'https://via.placeholder.com/160x40/0D0D0D/C9B800?text=PERUPACK' },
+    { name: 'Ledex', x: 88, y: 22, s: 'sm', img: 'https://via.placeholder.com/130x36/0D0D0D/C9B800?text=LEDEX' },
+    { name: 'Century 21', x: 16, y: 52, s: 'sm', img: 'https://via.placeholder.com/150x40/0D0D0D/C9B800?text=CENTURY+21' },
+    { name: 'Banco Financiero', x: 44, y: 46, s: 'xl', img: 'https://via.placeholder.com/200x52/0D0D0D/C9B800?text=BANCO+FINANCIERO' },
+    { name: 'Verdal', x: 76, y: 50, s: 'md', img: 'https://via.placeholder.com/150x40/0D0D0D/C9B800?text=VERDAL' },
+    { name: 'Llamagas', x: 6, y: 80, s: 'md', img: 'https://via.placeholder.com/155x40/0D0D0D/C9B800?text=LLAMAGAS' },
+    { name: 'Totalmatrix', x: 34, y: 82, s: 'sm', img: 'https://via.placeholder.com/140x36/0D0D0D/C9B800?text=TOTALMATRIX' },
+    { name: 'Port Logistics', x: 62, y: 78, s: 'sm', img: 'https://via.placeholder.com/145x36/0D0D0D/C9B800?text=PORT+LOGISTICS' },
 ]
+
+onMounted(() => {
+    ScrollTrigger.create({
+        trigger: '#logosField',
+        start: 'top 80%',
+        onEnter: () => {
+            gsap.from('.lf', {
+                opacity: 0, scale: 0.85,
+                duration: 0.7, ease: 'expo.out', stagger: 0.05
+            })
+        }
+    })
+})
 </script>
 
 <template>
-    <section class="about">
-        <LayoutContainer>
-            <div class="about__grid">
-
-                <!-- Left: text -->
-                <div class="about__text">
-                    <p class="about__label">Quiénes somos</p>
-
-                    <h2 class="about__title">{{ about.title }}</h2>
-
-                    <p class="about__description">{{ about.description }}</p>
-
-                    <div class="about__badges">
-                        <span class="about__badge">Sinergia</span>
-                        <span class="about__badge-plus">+</span>
-                        <span class="about__badge about__badge--crealab">Crealab</span>
-                    </div>
+    <section class="s-clientes" id="clientes">
+        <div class="wrap">
+            <h2 class="dtitle">Marcas que<br><em>confiaron.</em></h2>
+            <div class="logos-field" id="logosField">
+                <div v-for="logo in logos" :key="logo.name" class="lf" :data-s="logo.s"
+                    :style="{ left: `${logo.x}%`, top: `${logo.y}%` }">
+                    <img :src="logo.img" :alt="logo.name" />
                 </div>
-
-                <!-- Right: brand wall -->
-                <div class="about__brands">
-                    <p class="about__brands-label">Marcas que han confiado en nosotros</p>
-                    <div class="about__brands-grid">
-                        <span
-                            v-for="brand in brands"
-                            :key="brand"
-                            class="about__brand-item"
-                        >
-                            {{ brand }}
-                        </span>
-                    </div>
-                </div>
-
             </div>
-        </LayoutContainer>
+        </div>
     </section>
 </template>
 
 <style scoped>
-.about {
-    padding: var(--space-xl) 0;
-    background-color: var(--color-black-soft);
+.s-clientes {
+    padding: 100px 0;
+    background: var(--black);
 }
 
-.about__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
-    align-items: center;
+.logos-field {
+    position: relative;
+    height: 480px;
 }
 
-/* Left */
-.about__label {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: var(--letter-spacing-wider);
-    text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: var(--space-sm);
+.lf {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    opacity: 0.25;
+    transition: opacity .25s, filter .25s;
+    filter: grayscale(100%) brightness(1.5);
 }
 
-.about__title {
-    font-size: clamp(1.75rem, 3vw, var(--font-size-3xl));
-    font-weight: var(--font-weight-black);
-    color: var(--color-white);
-    line-height: var(--line-height-tight);
-    letter-spacing: -0.02em;
-    margin-bottom: var(--space-md);
+.lf:hover {
+    opacity: 1;
+    filter: none;
 }
 
-.about__description {
-    font-size: var(--font-size-lg);
-    color: var(--color-text-muted);
-    line-height: var(--line-height-loose);
-    margin-bottom: var(--space-lg);
+.lf img {
+    display: block;
 }
 
-.about__badges {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
+.lf[data-s="sm"] img {
+    height: 28px;
 }
 
-.about__badge {
-    padding: 0.4rem 1rem;
-    border: 1.5px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-black);
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
-    color: var(--color-white);
+.lf[data-s="md"] img {
+    height: 36px;
 }
 
-.about__badge--crealab {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
+.lf[data-s="lg"] img {
+    height: 44px;
 }
 
-.about__badge-plus {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-black);
-    color: var(--color-gray-mid);
-}
-
-/* Right: brand wall */
-.about__brands {
-    background-color: var(--color-black);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg);
-}
-
-.about__brands-label {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: var(--letter-spacing-wider);
-    text-transform: uppercase;
-    color: var(--color-gray-mid);
-    margin-bottom: var(--space-md);
-}
-
-.about__brands-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-sm);
-}
-
-.about__brand-item {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text-muted);
-    padding: var(--space-xs) var(--space-sm);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    text-align: center;
-    letter-spacing: var(--letter-spacing-wide);
-    transition: border-color var(--transition-fast), color var(--transition-fast);
-}
-
-.about__brand-item:hover {
-    border-color: var(--color-accent);
-    color: var(--color-white);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .about__grid {
-        grid-template-columns: 1fr;
-    }
-
-    .about__brands-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.lf[data-s="xl"] img {
+    height: 56px;
 }
 </style>

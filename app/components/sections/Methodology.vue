@@ -1,190 +1,155 @@
 <script setup lang="ts">
-import { methodologySection, methodology } from '~/content/home'
+import { methodology } from '~/content/home'
+import { ref, onMounted } from 'vue'
+import { gsap } from 'gsap'
+
+const activeStep = ref(0)
+
+const stepImages = [
+    '/images/step1.webp',
+    '/images/step2.webp',
+    '/images/step3.webp',
+    '/images/step4.webp',
+]
+
+function activate(i: number) {
+    activeStep.value = i
+    document.querySelectorAll('.proc-img').forEach((img, j) => {
+        gsap.to(img, {
+            opacity: j === i ? 1 : 0,
+            y: j === i ? 0 : 12,
+            duration: 0.5, ease: 'expo.out'
+        })
+    })
+}
+
+onMounted(() => activate(0))
 </script>
 
 <template>
-    <section class="methodology">
-        <LayoutContainer>
+    <section class="s-proceso" id="proceso">
+        <div class="wrap">
+            <h2 class="dtitle">Cómo<br><em>trabajamos.</em></h2>
+            <div class="proceso-inner">
 
-            <div class="methodology__header">
-                <p class="methodology__label">Nuestro enfoque</p>
-                <h2 class="methodology__title">{{ methodologySection.title }}</h2>
-            </div>
-
-            <div class="methodology__steps">
-                <div
-                    v-for="(step, i) in methodology"
-                    :key="i"
-                    class="methodology__step"
-                >
-                    <!-- Connector line (all except last) -->
-                    <div v-if="i < methodology.length - 1" class="methodology__connector" />
-
-                    <div class="methodology__step-inner">
-                        <div class="methodology__step-number">
-                            <span>0{{ i + 1 }}</span>
-                        </div>
-                        <div class="methodology__step-content">
-                            <h3 class="methodology__step-title">{{ step.title }}</h3>
-                            <p class="methodology__step-description">{{ step.description }}</p>
+                <!-- Steps -->
+                <div class="proc-steps">
+                    <div v-for="(step, i) in methodology" :key="i" class="proc-step"
+                        :class="{ 'proc-step--on': activeStep === i }" @mouseenter="activate(i)">
+                        <span class="proc-num">0{{ i + 1 }}</span>
+                        <div>
+                            <p class="proc-step-title">{{ step.title }}</p>
+                            <p class="proc-step-desc">{{ step.description }}</p>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Loop indicator -->
-            <div class="methodology__loop">
-                <span class="methodology__loop-text">Ciclo continuo de experiencia de marca</span>
-                <div class="methodology__loop-line" />
-            </div>
+                <!-- Sticky visual -->
+                <div class="proc-visual">
+                    <div class="proc-imgs">
+                        <div v-for="(img, i) in stepImages" :key="i" class="proc-img">
+                            <img :src="img" :alt="`Paso ${i + 1}`" loading="lazy" />
+                        </div>
+                    </div>
+                </div>
 
-        </LayoutContainer>
+            </div>
+        </div>
     </section>
 </template>
 
 <style scoped>
-.methodology {
-    padding: var(--space-xl) 0;
-    background-color: var(--color-black);
+.s-proceso {
+    padding: 120px 0;
+    background: var(--black-soft);
 }
 
-/* Header */
-.methodology__header {
-    text-align: center;
-    margin-bottom: var(--space-xl);
-}
-
-.methodology__label {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: var(--letter-spacing-wider);
-    text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: var(--space-sm);
-}
-
-.methodology__title {
-    font-size: clamp(1.75rem, 3.5vw, var(--font-size-3xl));
-    font-weight: var(--font-weight-black);
-    color: var(--color-white);
-    letter-spacing: -0.02em;
-    line-height: var(--line-height-tight);
-}
-
-/* Steps row */
-.methodology__steps {
+.proceso-inner {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    position: relative;
-    margin-bottom: var(--space-lg);
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
 }
 
-.methodology__step {
-    position: relative;
-    padding: 0 var(--space-sm);
-}
-
-/* Horizontal connector between steps */
-.methodology__connector {
-    position: absolute;
-    top: 24px; /* vertically centered with the number circle */
-    right: 0;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(
-        to right,
-        var(--color-border),
-        var(--color-accent) 50%,
-        var(--color-border)
-    );
-    transform: translateX(50%);
-    z-index: 0;
-}
-
-.methodology__step-inner {
-    position: relative;
-    z-index: 1;
+.proc-steps {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: var(--space-md);
+    padding-top: 8px;
 }
 
-/* Number bubble */
-.methodology__step-number {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background-color: var(--color-black-soft);
-    border: 1.5px solid var(--color-accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+.proc-step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    align-items: start;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: default;
 }
 
-.methodology__step-number span {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-black);
-    letter-spacing: var(--letter-spacing-wide);
-    color: var(--color-accent);
+.proc-step:first-child {
+    border-top: 1px solid var(--border);
 }
 
-.methodology__step-title {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-black);
-    color: var(--color-white);
-    letter-spacing: -0.01em;
-    margin-bottom: var(--space-xs);
+.proc-step--on .proc-step-title {
+    color: var(--gold);
 }
 
-.methodology__step-description {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    line-height: var(--line-height-loose);
+.proc-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    padding-top: 6px;
+    letter-spacing: 0.08em;
 }
 
-/* Loop indicator */
-.methodology__loop {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    justify-content: center;
+.proc-step--on .proc-num {
+    color: var(--gold);
 }
 
-.methodology__loop-text {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: var(--letter-spacing-wider);
-    text-transform: uppercase;
-    color: var(--color-gray-mid);
-    white-space: nowrap;
+.proc-step-title {
+    font-size: clamp(20px, 2vw, 26px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    color: var(--white);
+    transition: color .25s;
 }
 
-.methodology__loop-line {
-    flex: 1;
-    max-width: 120px;
-    height: 1px;
-    background-color: var(--color-border);
+.proc-step-desc {
+    font-size: 13px;
+    color: var(--light);
+    line-height: 1.65;
+    max-width: 320px;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-    .methodology__steps {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-lg);
-    }
-
-    .methodology__connector {
-        display: none;
-    }
+.proc-visual {
+    position: sticky;
+    top: 100px;
 }
 
-@media (max-width: 480px) {
-    .methodology__steps {
-        grid-template-columns: 1fr;
-    }
+.proc-imgs {
+    position: relative;
+    aspect-ratio: 4/3;
+}
+
+.proc-img {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    opacity: 0;
+    will-change: opacity, transform;
+}
+
+.proc-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.proc-img:first-child {
+    opacity: 1;
 }
 </style>

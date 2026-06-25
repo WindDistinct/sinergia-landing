@@ -1,247 +1,219 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const menuOpen = ref(false)
+const isScrolled = ref(false)
 
 const links = [
-    { label: 'Inicio',      to: '/'          },
-    { label: 'Portafolio',  to: '/portfolio' },
-    { label: 'Contacto',    to: '/contact'   },
+    { label: 'Inicio', to: '/' },
+    { label: 'Contáctanos', to: '/contact' },
 ]
+
+function onScroll() {
+    isScrolled.value = window.scrollY > 10
+}
+
+onMounted(() => window.addEventListener('scroll', onScroll))
+onUnmounted(() => window.removeEventListener('scroll', onScroll))
 </script>
 
 <template>
-    <nav class="navbar">
-        <div class="navbar__inner">
+    <nav id="nav" :class="{ scrolled: isScrolled }">
+        <div class="nav-inner">
+            <NuxtLink to="/" class="nav-logo">SINERGIA<em>—</em></NuxtLink>
 
-            <!-- Logo -->
-            <NuxtLink to="/" class="navbar__logo">
-                SINERGIA<span class="navbar__logo-dash">—</span>
-            </NuxtLink>
-
-            <!-- Desktop links -->
-            <ul class="navbar__links">
+            <ul class="nav-links">
                 <li v-for="link in links" :key="link.to">
-                    <NuxtLink
-                        :to="link.to"
-                        class="navbar__link"
-                        active-class="navbar__link--active"
-                    >
-                        {{ link.label }}
-                    </NuxtLink>
+                    <a :href="link.to">{{ link.label }}</a>
                 </li>
             </ul>
 
-            <!-- CTA desktop -->
-            <NuxtLink to="/contact" class="navbar__cta">
-                Conversemos
-            </NuxtLink>
+            <a href="#contacto" class="nav-cta">Cotizar stand</a>
 
-            <!-- Hamburger mobile -->
-            <button
-                class="navbar__hamburger"
-                :class="{ 'is-open': menuOpen }"
-                aria-label="Abrir menú"
-                @click="menuOpen = !menuOpen"
-            >
+            <button id="burger" class="nav-burger" :class="{ open: menuOpen }" aria-label="Menú"
+                @click="menuOpen = !menuOpen">
                 <span /><span /><span />
             </button>
-
         </div>
 
-        <!-- Mobile menu -->
-        <div class="navbar__mobile" :class="{ 'is-open': menuOpen }">
-            <ul class="navbar__mobile-links">
-                <li v-for="link in links" :key="link.to">
-                    <NuxtLink
-                        :to="link.to"
-                        class="navbar__mobile-link"
-                        active-class="navbar__link--active"
-                        @click="menuOpen = false"
-                    >
-                        {{ link.label }}
-                    </NuxtLink>
-                </li>
-                <li>
-                    <NuxtLink
-                        to="/contact"
-                        class="navbar__cta navbar__cta--mobile"
-                        @click="menuOpen = false"
-                    >
-                        Conversemos
-                    </NuxtLink>
-                </li>
-            </ul>
+        <div id="drawer" class="nav-drawer" :class="{ open: menuOpen }">
+            <a v-for="link in links" :key="link.to" :href="link.to" @click="menuOpen = false">
+                {{ link.label }}
+            </a>
+            <a href="/#contacto" @click="menuOpen = false">Cotizar stand</a>
         </div>
     </nav>
 </template>
 
 <style scoped>
-.navbar {
+#nav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100;
-    background-color: var(--color-black);
-    border-bottom: 1px solid var(--color-border);
+    z-index: 200;
+    height: 64px;
+    border-bottom: 1px solid transparent;
+    background: transparent;
+    transition: background .4s, border-color .4s;
 }
 
-.navbar__inner {
-    max-width: var(--container-width);
+#nav.scrolled {
+    background: rgba(13, 13, 13, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-color: var(--border);
+}
+
+.nav-inner {
+    max-width: 1300px;
     margin: 0 auto;
-    padding: 0 var(--container-padding);
-    height: 64px;
+    padding: 0 52px;
+    height: 100%;
     display: flex;
     align-items: center;
-    gap: var(--space-lg);
+    gap: 40px;
 }
 
-/* Logo */
-.navbar__logo {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-black);
-    color: var(--color-white);
-    text-decoration: none;
+.nav-logo {
+    font-size: 16px;
+    font-weight: 900;
     letter-spacing: -0.02em;
     flex-shrink: 0;
 }
 
-.navbar__logo-dash {
-    color: var(--color-accent);
+.nav-logo em {
+    font-style: normal;
+    color: var(--gold);
 }
 
-/* Desktop links */
-.navbar__links {
+.nav-links {
     display: flex;
-    list-style: none;
-    gap: var(--space-lg);
-    margin: 0;
-    padding: 0;
+    gap: 36px;
     margin-left: auto;
 }
 
-.navbar__link {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text-muted);
-    text-decoration: none;
-    letter-spacing: var(--letter-spacing-wide);
+.nav-links a {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--light);
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    transition: color var(--transition-fast);
+    transition: color .15s;
 }
 
-.navbar__link:hover,
-.navbar__link--active {
-    color: var(--color-white);
+.nav-links a:hover {
+    color: var(--white);
 }
 
-/* CTA button */
-.navbar__cta {
+.nav-cta {
     display: inline-block;
-    padding: 0.5rem 1.25rem;
-    background-color: var(--color-accent);
-    color: var(--color-black);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-black);
-    letter-spacing: var(--letter-spacing-wide);
+    padding: 9px 20px;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .08em;
     text-transform: uppercase;
-    text-decoration: none;
-    border-radius: var(--radius-sm);
-    transition: opacity var(--transition-fast);
+    border-radius: var(--r);
     flex-shrink: 0;
+    transition: opacity .15s;
 }
 
-.navbar__cta:hover {
-    opacity: 0.85;
+.nav-cta:hover {
+    opacity: .85;
 }
 
-/* Hamburger */
-.navbar__hamburger {
+.nav-burger {
     display: none;
     flex-direction: column;
     gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: var(--space-xs);
+    padding: 8px;
     margin-left: auto;
 }
 
-.navbar__hamburger span {
+.nav-burger span {
     display: block;
-    width: 24px;
+    width: 22px;
     height: 2px;
-    background-color: var(--color-white);
-    transition: transform var(--transition-base), opacity var(--transition-base);
+    background: var(--white);
+    border-radius: 2px;
+    transition: transform .25s var(--ease), opacity .2s;
 }
 
-.navbar__hamburger.is-open span:nth-child(1) {
+.nav-burger.open span:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
 }
-.navbar__hamburger.is-open span:nth-child(2) {
+
+.nav-burger.open span:nth-child(2) {
     opacity: 0;
 }
-.navbar__hamburger.is-open span:nth-child(3) {
+
+.nav-burger.open span:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg);
 }
 
-/* Mobile menu */
-.navbar__mobile {
+.nav-drawer {
     display: none;
     max-height: 0;
     overflow: hidden;
-    transition: max-height var(--transition-base);
-    background-color: var(--color-black-soft);
-    border-top: 1px solid var(--color-border);
+    transition: max-height .3s var(--ease);
+    background: var(--black-mid);
+    border-top: 1px solid var(--border);
 }
 
-.navbar__mobile.is-open {
-    max-height: 400px;
+.nav-drawer.open {
+    max-height: 300px;
 }
 
-.navbar__mobile-links {
-    list-style: none;
-    margin: 0;
-    padding: var(--space-sm) var(--container-padding) var(--space-md);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
+.nav-drawer a {
+    display: block;
+    padding: 14px 52px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--light);
+    border-bottom: 1px solid var(--border);
+    transition: color .15s;
 }
 
-.navbar__mobile-link {
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text-muted);
-    text-decoration: none;
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
-    transition: color var(--transition-fast);
+.nav-drawer a:hover {
+    color: var(--white);
 }
 
-.navbar__mobile-link:hover,
-.navbar__link--active {
-    color: var(--color-white);
+/* ── TABLET (≤ 860px) ── */
+@media (max-width: 860px) {
+    .nav-inner {
+        padding: 0 32px;
+        gap: 24px;
+    }
+
+    .nav-links {
+        gap: 24px;
+    }
 }
 
-.navbar__cta--mobile {
-    display: inline-block;
-    margin-top: var(--space-xs);
-}
+/* ── MÓVIL (≤ 640px) ── */
+@media (max-width: 640px) {
+    .nav-inner {
+        padding: 0 20px;
+        gap: 0;
+    }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .navbar__links,
-    .navbar__cta:not(.navbar__cta--mobile) {
+    .nav-links,
+    .nav-cta {
         display: none;
     }
 
-    .navbar__hamburger {
+    .nav-burger {
         display: flex;
     }
 
-    .navbar__mobile {
+    .nav-drawer {
         display: block;
+    }
+
+    .nav-drawer a {
+        padding: 14px 20px;
     }
 }
 </style>

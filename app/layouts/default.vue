@@ -11,7 +11,7 @@
 </template>
 
 <style scoped>
-.layout {
+/* .layout {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -21,6 +21,6 @@
 
 .layout__main {
   flex: 1;
-  padding-top: 64px; /* compensa el navbar fixed */
-}
+  padding-top: 64px; 
+} */
 </style>

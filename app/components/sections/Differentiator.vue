@@ -1,167 +1,163 @@
 <script setup lang="ts">
-import { differentiatorSection, differentiators } from '~/content/home'
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+onMounted(() => {
+  gsap.from('.render-pair', {
+    scrollTrigger: { trigger: '.render-pair', start: 'top 80%' },
+    opacity: 0, y: 30, duration: 1, ease: 'expo.out'
+  })
+})
 </script>
 
 <template>
-    <section class="differentiator">
-        <LayoutContainer>
+  <section class="s-render" id="render">
+    <div class="wrap">
+      <h2 class="dtitle">Del render<br><em>a la realidad.</em></h2>
+      <div class="render-pair">
 
-            <div class="differentiator__inner">
+        <div class="render-side">
+          <div class="render-frame">
+            <img src="/images/prestand.webp" alt="Render 3D" loading="lazy" />
+          </div>
+          <div class="render-label">Render 3D</div>
+        </div>
 
-                <!-- Left: heading -->
-                <div class="differentiator__heading">
-                    <p class="differentiator__label">Por qué Sinergia</p>
+        <div class="render-arrow">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
 
-                    <h2 class="differentiator__title">
-                        {{ differentiatorSection.title }}
-                    </h2>
+        <div class="render-side">
+          <div class="render-frame">
+            <img src="/images/poststand.webp" alt="Resultado final" loading="lazy" />
+          </div>
+          <div class="render-label">Resultado final</div>
+        </div>
 
-                    <p class="differentiator__subtitle">
-                        {{ differentiatorSection.subtitle }}
-                    </p>
-
-                    <NuxtLink to="/contact" class="differentiator__cta">
-                        Conversemos →
-                    </NuxtLink>
-                </div>
-
-                <!-- Right: cards -->
-                <div class="differentiator__cards">
-                    <div
-                        v-for="(item, i) in differentiators"
-                        :key="i"
-                        class="differentiator__card"
-                    >
-                        <div class="differentiator__card-header">
-                            <span class="differentiator__card-number">0{{ i + 1 }}</span>
-                            <div class="differentiator__card-line" />
-                        </div>
-                        <h3 class="differentiator__card-title">{{ item.title }}</h3>
-                        <p class="differentiator__card-description">{{ item.description }}</p>
-                    </div>
-                </div>
-
-            </div>
-
-        </LayoutContainer>
-    </section>
+      </div>
+      <p class="render-caption">Stand Perupack — ExpoAlimentaria 2023. <strong>Del diseño a la feria en 18
+          días.</strong></p>
+    </div>
+  </section>
 </template>
 
 <style scoped>
-.differentiator {
-    padding: var(--space-xl) 0;
-    background-color: var(--color-black);
+.s-render {
+  padding: 120px 0;
+  background: var(--black-soft);
 }
 
-.differentiator__inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
-    align-items: start;
+.render-pair {
+  display: grid;
+  grid-template-columns: 1fr 64px 1fr;
+  align-items: center;
 }
 
-/* Left */
-.differentiator__label {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: var(--letter-spacing-wider);
-    text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: var(--space-sm);
+.render-side {
+  position: relative;
 }
 
-.differentiator__title {
-    font-size: clamp(1.75rem, 3vw, var(--font-size-3xl));
-    font-weight: var(--font-weight-black);
-    color: var(--color-white);
-    letter-spacing: -0.02em;
-    line-height: var(--line-height-tight);
-    margin-bottom: var(--space-sm);
+.render-frame {
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: var(--black-mid);
 }
 
-.differentiator__subtitle {
-    font-size: var(--font-size-lg);
-    color: var(--color-accent);
-    font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-normal);
-    margin-bottom: var(--space-lg);
+.render-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.differentiator__cta {
-    display: inline-block;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-black);
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
-    color: var(--color-white);
-    text-decoration: none;
-    border-bottom: 1.5px solid var(--color-accent);
-    padding-bottom: 2px;
-    transition: color var(--transition-fast), border-color var(--transition-fast);
+.render-label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: var(--gold);
+  color: var(--black);
+  padding: 4px 10px;
+  border-radius: 2px;
 }
 
-.differentiator__cta:hover {
-    color: var(--color-accent);
+.render-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
 }
 
-/* Right: cards */
-.differentiator__cards {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
+.render-arrow svg {
+  width: 28px;
+  height: 28px;
 }
 
-.differentiator__card {
-    background-color: var(--color-black-soft);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-md) var(--space-lg);
-    transition: border-color var(--transition-base);
+.render-caption {
+  text-align: center;
+  margin-top: 32px;
+  font-size: 13px;
+  color: var(--light);
+  letter-spacing: 0.03em;
 }
 
-.differentiator__card:hover {
-    border-color: var(--color-accent);
+.render-caption strong {
+  color: var(--white);
 }
 
-.differentiator__card-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-sm);
-}
-
-.differentiator__card-number {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-black);
-    letter-spacing: var(--letter-spacing-wider);
-    color: var(--color-accent);
-    flex-shrink: 0;
-}
-
-.differentiator__card-line {
-    flex: 1;
-    height: 1px;
-    background-color: var(--color-border);
-}
-
-.differentiator__card-title {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-black);
-    color: var(--color-white);
-    letter-spacing: -0.01em;
-    margin-bottom: var(--space-xs);
-}
-
-.differentiator__card-description {
-    font-size: var(--font-size-md);
-    color: var(--color-text-muted);
-    line-height: var(--line-height-loose);
-}
-
-/* Responsive */
+/* ── TABLET (≤ 768px) ── */
 @media (max-width: 768px) {
-    .differentiator__inner {
-        grid-template-columns: 1fr;
-    }
+  .s-render {
+    padding: 80px 0;
+  }
+
+  .render-pair {
+    grid-template-columns: 1fr 40px 1fr;
+  }
+
+  .render-label {
+    font-size: 8px;
+    padding: 3px 8px;
+    top: 10px;
+    left: 10px;
+  }
+}
+
+/* ── MOBILE (≤ 540px) ── */
+@media (max-width: 540px) {
+  .s-render {
+    padding: 64px 0;
+  }
+
+  .render-pair {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 16px;
+  }
+
+  .render-arrow {
+    padding: 4px 0;
+  }
+
+  .render-arrow svg {
+    width: 24px;
+    height: 24px;
+    transform: rotate(90deg);
+  }
+
+  .render-caption {
+    margin-top: 24px;
+    font-size: 12px;
+  }
 }
 </style>

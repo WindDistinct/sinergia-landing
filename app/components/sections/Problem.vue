@@ -1,130 +1,162 @@
 <script setup lang="ts">
-import { problemSection, problems } from '~/content/home'
+import { problemSection } from '~/content/home'
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+const armadoImages = [
+  { src: '/images/standstart.webp', label: 'Pre-ensamble' },
+  { src: '/images/standfinal.webp', label: 'Resultado' },
+]
+
+onMounted(() => {
+  gsap.set('.armado-img', { opacity: 0, y: 24 })
+  ScrollTrigger.create({
+    trigger: '.armado-grid',
+    start: 'top 85%',
+    once: true,
+    onEnter: () => {
+      gsap.to('.armado-img', {
+        opacity: 1, y: 0,
+        duration: 0.9, ease: 'expo.out', stagger: 0.15
+      })
+    }
+  })
+})
 </script>
 
 <template>
-    <section class="problem">
-        <LayoutContainer>
+  <section class="s-armado" id="armado">
+    <div class="wrap">
+      <div class="armado-head">
+        <h2 class="dtitle" style="margin-bottom:0">{{ problemSection.title }}<br><em>armamos.</em></h2>
+        <p class="armado-desc">{{ problemSection.description }}</p>
+      </div>
 
-            <div class="problem__header">
-                <p class="problem__label">El problema</p>
-                <h2 class="problem__title">{{ problemSection.title }}</h2>
-                <p class="problem__description">{{ problemSection.description }}</p>
-            </div>
-
-            <div class="problem__grid">
-                <div
-                    v-for="(item, i) in problems"
-                    :key="i"
-                    class="problem__card"
-                >
-                    <div class="problem__card-icon">
-                        <span class="problem__card-number">0{{ i + 1 }}</span>
-                    </div>
-                    <h3 class="problem__card-title">{{ item.title }}</h3>
-                    <p class="problem__card-description">{{ item.description }}</p>
-                </div>
-            </div>
-
-        </LayoutContainer>
-    </section>
+      <div class="armado-grid">
+        <div v-for="(img, i) in armadoImages" :key="i" class="armado-img" :class="`armado-img--${i}`">
+          <img :src="img.src" :alt="img.label" loading="lazy" decoding="async" />
+          <span class="armado-img-label">{{ img.label }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <style scoped>
-.problem {
-    padding: var(--space-xl) 0;
-    background-color: var(--color-black-soft);
+.s-armado {
+  padding: 120px 0;
+  background: var(--black);
 }
 
-/* Header */
-.problem__header {
-    text-align: center;
-    max-width: 640px;
-    margin: 0 auto var(--space-lg);
+/* HEAD */
+.armado-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: end;
+  margin-bottom: 56px;
 }
 
-.problem__label {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: var(--letter-spacing-wider);
-    text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: var(--space-sm);
+.armado-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  max-width: 380px;
+  align-self: end;
 }
 
-.problem__title {
-    font-size: clamp(1.75rem, 3.5vw, var(--font-size-3xl));
-    font-weight: var(--font-weight-black);
-    line-height: var(--line-height-tight);
-    color: var(--color-white);
-    letter-spacing: -0.02em;
-    margin-bottom: var(--space-sm);
+/* GRID */
+.armado-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-.problem__description {
-    font-size: var(--font-size-lg);
-    color: var(--color-text-muted);
-    line-height: var(--line-height-loose);
+.armado-img {
+  border-radius: var(--r-md);
+  overflow: hidden;
+  position: relative;
 }
 
-/* Grid */
-.problem__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-md);
+.armado-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .6s var(--ease);
 }
 
-/* Card */
-.problem__card {
-    background-color: var(--color-black);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg) var(--space-md);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-    transition: border-color var(--transition-base);
+.armado-img:hover img {
+  transform: scale(1.04);
 }
 
-.problem__card:hover {
-    border-color: var(--color-gray-mid);
+.armado-img--0 {
+  aspect-ratio: 3/4;
 }
 
-.problem__card-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-sm);
-    background-color: var(--color-black-soft);
-    border: 1px solid var(--color-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.armado-img--1 {
+  aspect-ratio: 3/4;
+  margin-top: 48px;
 }
 
-.problem__card-number {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-black);
-    letter-spacing: var(--letter-spacing-wide);
-    color: var(--color-accent);
+.armado-img-label {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--gold);
+  padding: 4px 10px;
+  border-radius: 2px;
 }
 
-.problem__card-title {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-black);
-    color: var(--color-white);
-    line-height: var(--line-height-tight);
-}
-
-.problem__card-description {
-    font-size: var(--font-size-md);
-    color: var(--color-text-muted);
-    line-height: var(--line-height-loose);
-}
-
-/* Responsive */
+/* ── TABLET (≤ 768px) ── */
 @media (max-width: 768px) {
-    .problem__grid {
-        grid-template-columns: 1fr;
-    }
+  .s-armado {
+    padding: 80px 0;
+  }
+
+  .armado-head {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .armado-grid {
+    max-width: 600px;
+    gap: 12px;
+  }
+
+  .armado-img--1 {
+    margin-top: 32px;
+  }
+}
+
+/* ── MOBILE (≤ 540px) ── */
+@media (max-width: 540px) {
+  .s-armado {
+    padding: 64px 0;
+  }
+
+  .armado-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    gap: 12px;
+  }
+
+  .armado-img--0,
+  .armado-img--1 {
+    aspect-ratio: 4/3;
+    margin-top: 0;
+  }
 }
 </style>

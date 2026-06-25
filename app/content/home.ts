@@ -7,10 +7,9 @@ import type {
 
 
 export const hero: HeroContent = {
-    title: 'Experiencias de marca que conectan, se viven y se recuerdan',
-
-    subtitle:
-        'Stands · Ferias · Activaciones · Merchandising',
+    title: 'Stands que',
+    titleHighLight: 'detienen',
+    titleEnd: 'a todos.',
 
     description:
         'Diseñamos experiencias de marca que atraen, generan interacción y construyen recordación.',
@@ -33,10 +32,10 @@ export const competition: SectionContent = {
 
 export const problemSection: SectionContent = {
 
-    title: 'La mayoría de stands no logran conectar',
+    title: 'Así lo',
 
     description:
-        'Muchos espacios solo exhiben productos y servicios, pero no generan experiencias memorables.'
+        'Cada stand nace en nuestro taller en Chorrillos. Lo fabricamos, lo pre-ensamblamos y lo llevamos a feria listo para montar. Cero improvisación el día del evento.'
 }
 
 
@@ -98,29 +97,27 @@ export const methodologySection: SectionContent = {
 export const methodology: CardContent[] = [
 
     {
-        title: 'Atraemos',
+        title: 'Brief & Estrategia',
         description:
-            'Captamos atención desde el primer contacto.'
+            'Entendemos tu feria, tu competencia y el espacio asignado. Definimos objetivos antes de dibujar una línea.'
     },
 
     {
-        title: 'Interactuamos',
+        title: 'Diseño & Render',
         description:
-            'Generamos experiencias participativas.'
+            '3D fotorrealista del stand completo. Ves exactamente lo que vamos a construir antes de aprobar.'
     },
 
     {
-        title: 'Conectamos',
+        title: 'Montaje en Feria',
         description:
-            'Creamos vínculos entre audiencia y marca.'
+            'Nuestro equipo monta el stand en sitio. Tú llegas y vendes. Nosotros nos ocupamos del resto.'
     },
-
     {
-        title: 'Recordamos',
+        title: 'Desmontaje',
         description:
-            'Diseñamos experiencias memorables.'
+            'Al cierre de la feria recogemos todo. Si el stand es reutilizable, lo almacenamos para tu próximo evento.'
     }
-
 ]
 
 
@@ -193,7 +190,7 @@ export const differentiators: CardContent[] = [
 
 export const portfolio: SectionContent = {
 
-    title: 'Así se viven nuestras experiencias',
+    title: 'Lo que',
 
     description:
         'Stands, activaciones y experiencias desarrolladas para generar impacto.'

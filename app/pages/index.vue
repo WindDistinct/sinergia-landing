@@ -20,15 +20,19 @@ useSEO(seo.home)
 
 <template>
     <Hero />
+    <Portfolio />
+    <Differentiator />
     <Competition />
     <Problem />
-    <Mindset />
-    <AboutUs />
     <Methodology />
+    <AboutUs />
     <WhatWeDo />
-    <Differentiator />
-    <Portfolio />
-    <Experiences />
-    <HowWeHelp />
     <ContactCTA />
+
+
+    <!-- Eliminados: -->
+    <!-- <Mindset /> -->
+    <!-- <Experiences /> -->
+    <!-- <HowWeHelp /> -->
+
 </template>

@@ -1,6 +1,7 @@
 export interface HeroContent {
     title: string
-    subtitle: string
+    titleHighLight?: string
+    titleEnd: string
     description: string
     ctaPrimary: string
     ctaSecondary: string
