@@ -1,56 +1,95 @@
-.card{
+/* ── Buttons ── */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--r);
+  transition: opacity .15s, transform .15s;
+}
 
-    padding:2rem;
-    
-    background:var(
-    --color-surface
-    );
-    
-    border-radius:
-    var(--radius-md);
-    
-    border:1px solid
-    var(--color-border);
-    
-    }
-    
-    .button{
-    
-    display:inline-flex;
-    
-    padding:
-    1rem
-    1.5rem;
-    
-    border-radius:
-    999px;
-    
-    font-weight:600;
-    
-    cursor:pointer;
-    }
-    
-    .button-primary{
-    
-    background:
-    var(--color-primary);
-    
-    color:white;
-    }
-    
-    .button-secondary{
-    
-    border:1px solid
-    var(--color-border);
-    }
-    
-    .section-title{
-    
-    display:flex;
-    flex-direction:column;
-    
-    gap:.5rem;
-    
-    margin-bottom:
-    3rem;
-    }
+.btn-gold:hover {
+  opacity: .88;
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  background: transparent;
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-2);
+  border-radius: var(--r);
+  transition: border-color .2s, transform .15s;
+}
+
+.btn-ghost:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-2px);
+}
+
+.pf {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--border-2);
+  border-radius: 2px;
+  padding: 8px 14px;
+  transition: color .2s, border-color .2s, background .2s;
+}
+
+.pf:hover {
+  color: var(--white);
+  border-color: var(--muted);
+}
+
+.pf.pf-on {
+  color: var(--black);
+  background: var(--gold);
+  border-color: var(--gold);
+}
+/* ── Form ── */
+.f-submit {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: opacity .15s, background .3s, color .3s;
+}
+
+.f-submit:hover:not(:disabled) {
+  opacity: .88;
+}
+
+.f-submit:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.f-submit.sent {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+}

@@ -1,80 +1,74 @@
 :root {
+    /* Colors */
+    --black: #0D0D0D;
+    --black-soft: #111111;
+    --black-mid: #171717;
+    --black-card: #1C1C1C;
+    --gold: #C9B800;
+    --gold-faint: rgba(201, 184, 0, 0.06);
+    --gold-dim: rgba(201, 184, 0, 0.15);
+    --white: #FFFFFF;
+    --off-white: #E8E8E8;
+    --border: #1E1E1E;
+    --border-2: #272727;
+    --muted: #484848;
+    --light: #888888;
+    --text: #B0B0B0;
 
-    /* ── Colors ── */
+    /* Type */
+    --font: 'Inter', system-ui, sans-serif;
 
-    --color-black:          #0D0D0D;
-    --color-black-soft:     #1A1A1A;
-    --color-white:          #FFFFFF;
+    /* Radii */
+    --r: 4px;
+    --r-md: 8px;
+    --r-lg: 12px;
 
-    --color-yellow:         #C9B800;
-    --color-yellow-light:   #D4C93A;
+    /* Easing */
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
-    --color-gray-dark:      #2C2C2C;
-    --color-gray-mid:       #5A5A5A;
-    --color-gray-light:     #A0A0A0;
-    --color-gray-border:    #2E2E2E;
+    /* ── Variables del diseño anterior, para no tener que actualizar todo ── */
+    --color-black: var(--black);
+    --color-black-soft: var(--black-soft);
+    --color-black-mid: var(--black-mid);
+    --color-accent: var(--gold);
+    --color-white: var(--white);
+    --color-border: var(--border);
+    --color-text-muted: var(--text);
+    --color-gray-mid: var(--light);
+    --color-gray-dark: var(--muted);
 
-    /* Semantic aliases */
-    --color-primary:        var(--color-black);
-    --color-accent:         var(--color-yellow);
-    --color-background:     var(--color-black);
-    --color-surface:        var(--color-black-soft);
-    --color-text:           var(--color-white);
-    --color-text-muted:     var(--color-gray-light);
-    --color-border:         var(--color-gray-border);
+    --font-size-xs: 10px;
+    --font-size-sm: 12px;
+    --font-size-md: 14px;
+    --font-size-lg: 16px;
+    --font-size-xl: 20px;
+    --font-size-2xl: 24px;
+    --font-size-3xl: 32px;
+    --font-size-4xl: 48px;
 
+    --font-weight-bold: 700;
+    --font-weight-black: 900;
 
-    /* ── Typography ── */
+    --line-height-tight: 0.93;
+    --line-height-normal: 1.5;
+    --line-height-loose: 1.65;
 
-    --font-family:          'Inter', system-ui, sans-serif;
-    --font-weight-regular:  400;
-    --font-weight-bold:     700;
-    --font-weight-black:    900;
-
-    --font-size-xs:         0.75rem;    /* 12px */
-    --font-size-sm:         0.875rem;   /* 14px */
-    --font-size-md:         1rem;       /* 16px */
-    --font-size-lg:         1.125rem;   /* 18px */
-    --font-size-xl:         1.5rem;     /* 24px */
-    --font-size-2xl:        2rem;       /* 32px */
-    --font-size-3xl:        2.75rem;    /* 44px */
-    --font-size-4xl:        3.75rem;    /* 60px */
-    --font-size-5xl:        5rem;       /* 80px */
-
-    --line-height-tight:    1.1;
-    --line-height-normal:   1.5;
-    --line-height-loose:    1.75;
-
-    --letter-spacing-wide:  0.05em;
+    --letter-spacing-wide: 0.05em;
     --letter-spacing-wider: 0.1em;
 
+    --radius-sm: var(--r);
+    --radius-md: var(--r-md);
 
-    /* ── Spacing ── */
+    --container-width: 1300px;
+    --container-padding: 52px;
 
-    --space-xs:             0.5rem;     /* 8px  */
-    --space-sm:             1rem;       /* 16px */
-    --space-md:             1.5rem;     /* 24px */
-    --space-lg:             3rem;       /* 48px */
-    --space-xl:             6rem;       /* 96px */
-    --space-2xl:            10rem;      /* 160px */
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.25s ease;
 
-
-    /* ── Border radius ── */
-
-    --radius-sm:            6px;
-    --radius-md:            12px;
-    --radius-lg:            20px;
-
-
-    /* ── Container ── */
-
-    --container-width:      1200px;
-    --container-padding:    var(--space-md);
-
-
-    /* ── Transitions ── */
-
-    --transition-fast:      150ms ease;
-    --transition-base:      250ms ease;
-
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 40px;
+    --space-xl: 80px;
+    --space-2xl: 120px;
 }

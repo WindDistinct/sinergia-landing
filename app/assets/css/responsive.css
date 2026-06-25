@@ -1,0 +1,104 @@
+
+@media (max-width: 600px) {
+  .wrap {
+    padding: 0 20px;
+  }
+
+  .nav-inner {
+    padding: 0 20px;
+  }
+
+  .nav-drawer a {
+    padding: 14px 20px;
+  }
+
+  .hero {
+    padding: 88px 20px 56px;
+  }
+
+  .hero-photos {
+    height: 260px;
+  }
+
+  .hero-photos::before {
+    display: none;
+  }
+
+  .pgrid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 240px;
+  }
+
+  .port-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .armado-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .armado-img:nth-child(3) {
+    display: block;
+  }
+
+  .armado-img {
+    margin-top: 0 !important;
+  }
+
+  .proceso-inner {
+    grid-template-columns: 1fr!important;
+  }
+
+  .proc-visual{
+    display: none;
+  }
+
+  .frow {
+    grid-template-columns: 1fr;
+  }
+
+  .ft-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .ft-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .logos-field {
+    height: 600px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  #intro {
+    display: none;
+  }
+
+  #site {
+    opacity: 1 !important;
+  }
+
+  .hero__line {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  #hpA,
+  #hpB,
+  #hpC {
+    opacity: 1 !important;
+  }
+}
