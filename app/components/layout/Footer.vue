@@ -40,7 +40,7 @@ const year = new Date().getFullYear()
 
             <div class="ft-bottom">
                 <p class="ft-copy">© {{ year }} Sinergia. Todos los derechos reservados.</p>
-                <a href="https://bluelynk.dev" target="_blank" rel="noopener" class="powerdby">
+                <a href="https://www.bluelynk.dev/" target="_blank" rel="noopener" class="powerdby">
                     <span>Powered by</span>
                     <img src="/images/BlueLynk-horizontal-azul.png" alt="Blue Lynk">
                 </a>
